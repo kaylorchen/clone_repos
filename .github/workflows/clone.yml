@@ -1,0 +1,28 @@
+name: Build and Upload Artifact
+
+# 触发工作流的事件
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run build script
+      run: |
+        bash clone.sh
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: git
+        path: git.tar.gz
